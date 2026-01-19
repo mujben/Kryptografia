@@ -21,6 +21,7 @@ struct ECDSA_sim : Simulation {
         {
             cout << "Alice makes her public ECDSA key available..\n\n";
             ECDSA_alice_public_key = AliceDSA.get_public_key();
+            getchar();
         }
         semBob.release();
 
@@ -35,6 +36,7 @@ struct ECDSA_sim : Simulation {
             Signature signature = AliceDSA.sign(message);
             mailbox = {Sender::Alice, string(alice_public_key) + " " + string(signature)};
             cout << "Alice sends to Bob: \n" << mailbox << "\n";
+            getchar();
         }
         semEve.release();
 
@@ -45,6 +47,7 @@ struct ECDSA_sim : Simulation {
             Signature signature = AliceDSA.sign(message);
             mailbox = {Sender::Alice, string(alice_public_key) + " " + string(signature)};
             cout << "Alice sends to Bob: \n" << mailbox << "\n";
+            getchar();
         }
         semBob.release();
 
@@ -65,6 +68,7 @@ struct ECDSA_sim : Simulation {
             Signature signature = AliceDSA.sign(encrypted);
             mailbox = {Sender::Alice, encrypted + " " + string(signature)};
             cout << "Alice sends to Bob: \n" << mailbox << "\n";
+            getchar();
         }
         semBob.release();
 
@@ -82,6 +86,7 @@ struct ECDSA_sim : Simulation {
 
             cout << "\n\nSEE?? IT'S NOT THAT HARD\n";
             cout << "JUST AUTHENTICATE\n";
+            getchar();
         }
     }
 
@@ -108,6 +113,7 @@ struct ECDSA_sim : Simulation {
             cout << "Eve tries to send her public key instead\n\n";
             mailbox.text = string(eve_public_key) + " " +  to_string(c) + " " + to_string(d);
             cout << "Eve sends to Bob: \n" << mailbox << "\n";
+            getchar();
         }
         semBob.release();
 
@@ -118,6 +124,7 @@ struct ECDSA_sim : Simulation {
             Signature signature = EveDSA.sign(string(eve_public_key));
             mailbox.text = string(eve_public_key) + " " + string(signature);
             cout << "Eve sends to Bob: \n" << mailbox << "\n";
+            getchar();
         }
         semBob.release();
     }
@@ -125,9 +132,12 @@ struct ECDSA_sim : Simulation {
     void bob() override {
         ECDSA BobDSA = ECDSA(curve, g, n);
 
-        semBob.acquire();
-        cout << "Bob makes his public ECDSA key available..\n\n";
-        ECDSA_bob_public_key = BobDSA.get_public_key();
+        semBob.acquire(); 
+        {
+            cout << "Bob makes his public ECDSA key available..\n\n";
+            ECDSA_bob_public_key = BobDSA.get_public_key();
+            getchar();
+        }
         semAlice.release();
 
 
@@ -144,6 +154,7 @@ struct ECDSA_sim : Simulation {
             istringstream iss(mailbox.text);
             iss >> a >> b >> c >> d;
             cout << BobDSA.verify(to_string(a) + " " + to_string(b), {{c, n}, {d, n}}, ECDSA_alice_public_key, curve, g, n) << "\n\n";
+            getchar();
         }
         semEve.release();
 
@@ -155,6 +166,7 @@ struct ECDSA_sim : Simulation {
             istringstream iss(mailbox.text);
             iss >> a >> b >> c >> d;
             cout << BobDSA.verify(to_string(a) + " " + to_string(b), {{c, n}, {d, n}}, ECDSA_alice_public_key, curve, g, n) << "\n\n";
+            getchar();
         }
         semAlice.release();
 
@@ -173,6 +185,7 @@ struct ECDSA_sim : Simulation {
             Signature signature = BobDSA.sign(string(bob_public_key));
             mailbox = {Sender::Bob, string(bob_public_key) + " " + string(signature)};
             cout << "Bob sends to Alice: \n" << mailbox << "\n";
+            getchar();
         }
         semAlice.release();
 
@@ -198,6 +211,7 @@ struct ECDSA_sim : Simulation {
 
             mailbox = {Sender::Bob, encrypted_message + " " + string(signature)};
             cout << "Bob sends to Alice: \n" << mailbox << "\n";
+            getchar();
         }
         semAlice.release();
     }

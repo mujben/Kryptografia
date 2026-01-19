@@ -3,7 +3,7 @@
   "configurePresets": [
     {
       "name": "ConfigTests",
-      "displayName": "Debug Build",
+      "displayName": "ConfigTests",
       "generator": "MinGW Makefiles",
       "binaryDir": "${sourceDir}/build/debug/tests",
       "cacheVariables": {
@@ -13,7 +13,7 @@
     },
     {
       "name": "ConfigSrc",
-      "displayName": "Debug Build",
+      "displayName": "ConfigSrc",
       "generator": "MinGW Makefiles",
       "binaryDir": "${sourceDir}/build/debug/src",
       "cacheVariables": {
@@ -23,7 +23,7 @@
     },
     {
       "name": "ConfigABE",
-      "displayName": "Debug Build",
+      "displayName": "ConfigABE",
       "generator": "MinGW Makefiles",
       "binaryDir": "${sourceDir}/build/debug/ABE",
       "cacheVariables": {
