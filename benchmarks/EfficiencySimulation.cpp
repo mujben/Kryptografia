@@ -72,7 +72,7 @@ static const std::map<int, LL> primes = {
     {62, 4611686018427387847}
 };
 
-tuple<int, double, double> measure_time(const int bit_len, const int ITERATIONS = 10, const int MAX_NAIVE = 18) {
+tuple<int, double, double> measure_time(const int bit_len, const int ITERATIONS = 1000, const int MAX_NAIVE = 16) {
     double total_duration_bsgs = 0.0;
     double total_duration_naive = 0.0;
 
@@ -100,8 +100,8 @@ tuple<int, double, double> measure_time(const int bit_len, const int ITERATIONS 
             // }
         }
     }
-    double avg_bsgs = total_duration_bsgs / 10.0;
-    double avg_naive = (bit_len <= MAX_NAIVE) ? (total_duration_naive / 10.0) : -1.0;
+    double avg_bsgs = total_duration_bsgs / static_cast<float>(ITERATIONS);
+    double avg_naive = (bit_len <= MAX_NAIVE) ? (total_duration_naive / static_cast<float>(ITERATIONS)) : -1.0;
     cout << "finished bits: " << bit_len << ", bsgs: " << avg_bsgs << ", naive: " << avg_naive << endl;
     return {bit_len, avg_bsgs, avg_naive};
 }

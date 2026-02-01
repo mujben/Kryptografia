@@ -12,7 +12,7 @@
 using namespace std;
 
 int main() {
-    const LL p = 4611686018427387847;//2965048609; //32-bit prime number
+    constexpr LL p = 4611686018427387847; //62-bit prime
     EC curve(p);
     LL curve_order = 0;
     array<LL, 2> factored{};
@@ -70,7 +70,7 @@ int main() {
     Point Qa = alice.get_public_key();
     cout << "Alice's Public Key (QA): (" << Qa.x << ", " << Qa.y << ")\n";
 
-    string message = "Wiadomosc do podpisania";
+    string message = "Message to sign";
     cout << "Message: \"" << message << "\"\n";
 
     Signature sig = alice.sign(message);

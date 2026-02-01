@@ -10,7 +10,7 @@ void EC::init_random(LL modulo) {
 
     random_device rd;
     mt19937 gen(rd());
-    uniform_int_distribution<int> dis(1, 255);
+    uniform_int_distribution<LL> dis(1, modulo - 1);
 
     Int delta(0, p);
     do {
